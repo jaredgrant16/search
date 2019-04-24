@@ -47,13 +47,13 @@ public class StackBasedDepthFirstSearcher<T> extends Searcher<T> {
 				}
 			}
 		}
-		Stack<T> solution = new Stack<T>();
-		solution.push(pointer);
+		List<T> solution = new ArrayList<T>();
+		solution.add(pointer);
 		while(!pointer.equals(inState)) {
-			solution.push(preList.get(list.indexOf(pointer)));
+			solution.add(preList.get(list.indexOf(pointer)));
 			pointer = preList.get(list.indexOf(pointer));
 		}
-		
+		Collections.reverse(solution);
         return solution;
 	}
 }
