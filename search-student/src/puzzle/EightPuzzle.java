@@ -60,26 +60,89 @@ public class EightPuzzle implements SearchProblem<List<Integer>> {
 	 * @throws IllegalArgumentException
 	 *             if startingValues is invalid
 	 */
+	List<Integer> inState;
 	public EightPuzzle(List<Integer> startingValues) {
+		if(startingValues.size() != 9 || startingValues == null)throw new IllegalArgumentException();
+		for(int i = 0; i< 9; i++) {
+			if(!startingValues.contains(i))throw new IllegalArgumentException();
+		}
+		inState = startingValues;
 	}
 
 	@Override
 	public List<Integer> getInitialState() {
 		// TODO
-		return null;
+		
+		return inState;
 	}
 
 	@Override
 	public List<List<Integer>> getSuccessors(List<Integer> currentState) {
 		// TODO
-		return null;
+		List<List<Integer>> successors = new ArrayList<List<Integer>>();
+		List<Integer> list1 = new ArrayList<Integer>();
+		List<Integer> list2 = new ArrayList<Integer>();
+		List<Integer> list3 = new ArrayList<Integer>();
+		List<Integer> list4 = new ArrayList<Integer>();
+		for (int i = 0; i < 9; i++) {
+			list1.add(currentState.get(i));
+			list2.add(currentState.get(i));
+			list3.add(currentState.get(i));
+			list4.add(currentState.get(i));
+		}
+		int emptyIndex = currentState.indexOf(0);
+
+		// check indexSpace to set up and down to 0 preemtively
+		int left = emptyIndex - 1;
+		int right = emptyIndex + 1;
+		int up = emptyIndex - 3;
+		int down = emptyIndex + 3;
+
+		if (emptyIndex == 3 || emptyIndex == 6)
+			left = -1;
+		if (emptyIndex == 2 || emptyIndex == 5 || emptyIndex == 8)
+			right = -1;
+
+		if (left >= 0 && left <= 7) {
+			list1.set(emptyIndex, list1.get(left));
+			list1.set(left, 0);
+			successors.add(list1);
+		}
+		if (right >= 1 && right <= 8) {
+			list2.set(emptyIndex, list2.get(right));
+			list2.set(right, 0);
+			successors.add(list2);
+		}
+
+		if (up >= 0 && up <= 5) {
+			list3.set(emptyIndex, list3.get(up));
+			list3.set(up, 0);
+			successors.add(list3);
+		}
+		if (down >= 3 && down <= 8) {
+			list4.set(emptyIndex, list4.get(down));
+			list4.set(down, 0);
+			successors.add(list4);
+		}
+
+		return successors;
 	}
 
 
 	@Override
 	public boolean isGoal(List<Integer> state) {
 		// TODO
-		return false;
+		if (state.size() != 9 || state.indexOf(0) == -1)
+			return false;
+		List<Integer> solution = Arrays.asList(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 0}); 
+		int in = 0;
+		for (Integer i : state) {
+			if (i != solution.get(in))
+				return false;
+			in++;
+		}
+		return true;
+		
 	}
 
 	public static void main(String[] args) {
