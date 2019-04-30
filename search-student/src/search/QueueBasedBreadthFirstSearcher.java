@@ -55,7 +55,7 @@ public class QueueBasedBreadthFirstSearcher<T> extends Searcher<T> {
 			solution.add(preList.get(list.indexOf(pointer)));
 			pointer = preList.get(list.indexOf(pointer));
 		}
-		
+		Collections.reverse(solution);
         return solution;
         		
 	}
