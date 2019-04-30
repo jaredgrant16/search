@@ -61,7 +61,7 @@ public abstract class Searcher<T> {
 		if(solution == null)throw new NullPointerException(); //null exception
 		if(!solution.get(0).equals(searchProblem.getInitialState()))return false; //initial state comparison
 		if(solution.size() <= 1)return false; //at least one state
-       
+		if(solution.isEmpty())return false;
 		for(int i =1; i<solution.size(); i++) {
 			List<T> pre = searchProblem.getSuccessors(solution.get(i-1));
 			T successor = solution.get(i);
