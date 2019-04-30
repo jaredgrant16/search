@@ -62,7 +62,7 @@ public class EightPuzzle implements SearchProblem<List<Integer>> {
 	 */
 	List<Integer> inState;
 	public EightPuzzle(List<Integer> startingValues) {
-		if(startingValues.size() != 9 || startingValues == null)throw new IllegalArgumentException();
+		if(startingValues.size() != 9 || startingValues == null || startingValues.isEmpty())throw new IllegalArgumentException();
 		for(int i = 0; i< 9; i++) {
 			if(!startingValues.contains(i))throw new IllegalArgumentException();
 		}
